@@ -2,31 +2,33 @@ package main
 
 import (
 	"fmt"
-    "github.com/priyanshoon/go-url-shortener/handler"
-    "github.com/priyanshoon/go-url-shortener/store"
 	"github.com/gin-gonic/gin"
+	"github.com/priyanshoon/go-url-shortener/handler"
+	"github.com/priyanshoon/go-url-shortener/store"
+	"net/http"
 )
 
 func main() {
-    r :=  gin.Default()
-    r.GET("/", func(c *gin.Context) {
-        c.JSON(200, gin.H {
-            "message": "hey, go url shortner",
-        })
-    })
+	r := gin.Default()
+	r.LoadHTMLGlob("templates/*")
 
-    r.POST("/create-short-url", func(c *gin.Context) {
-        handler.CreateShortUrl(c)
-    })
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", gin.H{})
+	})
 
-    r.GET("/:shortUrl", func(c *gin.Context) {
-        handler.HandleShortUrlRedirect(c)
-    })
+	r.POST("/create-short-url", func(c *gin.Context) {
+		handler.CreateShortUrl(c)
+	})
 
-    store.InitializeStore()
+	r.GET("/:shortUrl", func(c *gin.Context) {
+		handler.HandleShortUrlRedirect(c)
+	})
 
-    err := r.Run(":9808")
-    if err != nil {
-        panic(fmt.Sprintf("failed to start the web server - error : %v", err))
-    }
+	// store.InitializeBackupStore()
+	store.InitializeStore()
+
+	err := r.Run(":3000")
+	if err != nil {
+		panic(fmt.Sprintf("failed to start the web server - error : %v", err))
+	}
 }

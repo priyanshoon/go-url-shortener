@@ -12,7 +12,7 @@ func init() {
 }
 
 func TestStoreInit(t *testing.T) {
-	assert.True(t, testStoreService.redisClient != nil)
+    assert.True(t, testStoreService.redisClient != nil)
 }
 
 func TestInsertionAndRetrieval(t *testing.T) {

@@ -1,0 +1,8 @@
+{{if .message }}
+<h3 style="color: green;">{{ .message }} - <span style="color: red; font-weight: bold;">Note that URL is only valid for 3 hours
+</span>
+</h3>
+{{end}}
+{{if .short_url}}
+<a id="copyURL" href="{{ .short_url}}">{{ .short_url }}</a>
+{{end}}
