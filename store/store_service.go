@@ -18,7 +18,7 @@ var (
 	ctx          = context.Background()
 )
 
-const CacheDuration = 3 * time.Hour
+const CacheDuration = 10 * time.Second
 
 func InitializeBackupStore() {
 	const (
